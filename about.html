@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 — 袁家鑫</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="assets/styles/main.css">
+
+    <style>
+        /* ========== Page Layout ========== */
+        .about-content {
+            position: relative;
+            z-index: 2;
+            padding-top: calc(var(--nav-height) + 64px);
+            padding-bottom: 80px;
+            max-width: 650px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ========== Avatar ========== */
+        .avatar-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 40px;
+        }
+
+        /* Subtle static ring — glows on hover */
+        .avatar-ring {
+            position: absolute;
+            top: -6px; left: -6px;
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            border-radius: 50%;
+            border: 2px solid var(--border-default);
+            transition:
+                border-color var(--duration-normal) var(--ease-expo),
+                box-shadow var(--duration-normal) var(--ease-expo);
+        }
+
+        .avatar-container:hover .avatar-ring {
+            border-color: var(--border-accent);
+            box-shadow: 0 0 32px var(--accent-glow);
+        }
+
+        .avatar-img {
+            position: relative;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.08);
+            z-index: 2;
+            transition: border-color var(--duration-normal) var(--ease-expo);
+        }
+
+        .avatar-container:hover .avatar-img {
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        /* ========== Name & Title ========== */
+        .about-name {
+            font-family: var(--font-display);
+            font-size: 42px;
+            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.45) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .about-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 32px;
+        }
+
+        /* ========== Intro Text ========== */
+        .intro-card {
+            width: 100%;
+            max-width: 540px;
+            margin-bottom: 40px;
+            padding: 28px 32px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-xl);
+            text-align: left;
+            box-shadow: var(--shadow-card);
+            transition:
+                border-color var(--duration-normal) var(--ease-expo),
+                box-shadow var(--duration-normal) var(--ease-expo);
+        }
+
+        .intro-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        /* Subtle accent line at top */
+        .intro-card::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            border-radius: 1px;
+            background: var(--accent);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .intro-card p {
+            font-family: var(--font-ui);
+            font-size: 15px;
+            color: var(--foreground-muted);
+            line-height: 1.9;
+            margin-bottom: 14px;
+        }
+
+        .intro-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-card p strong {
+            color: var(--foreground);
+            font-weight: 600;
+        }
+
+        /* ========== Divider ========== */
+        .divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(94,106,210,0.30), transparent);
+            margin-bottom: 36px;
+        }
+
+        /* ========== Skills ========== */
+        .skills-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 24px;
+            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.70) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 500px;
+        }
+
+        /* Skill groups (category + tags) */
+        .skills-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .skill-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skill-group-title {
+            font-family: var(--font-ui);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--foreground-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* Skill tag pill */
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--foreground-muted);
+            background: var(--surface);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+            cursor: default;
+            user-select: none;
+            transition:
+                color var(--duration-fast) var(--ease-expo),
+                background var(--duration-fast) var(--ease-expo),
+                border-color var(--duration-fast) var(--ease-expo),
+                transform var(--duration-fast) var(--ease-expo),
+                box-shadow var(--duration-fast) var(--ease-expo);
+        }
+
+        .skill-tag:hover {
+            color: var(--foreground);
+            background: var(--surface-hover);
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(94,106,210,0.08);
+        }
+
+        .skill-tag .tag-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 767px) {
+            .about-content {
+                padding-top: calc(var(--nav-height) + 40px);
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .avatar-container {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 32px;
+            }
+
+            .about-name {
+                font-size: 34px;
+            }
+
+            .intro-card {
+                padding: 20px 22px;
+            }
+
+            .intro-card p {
+                font-size: 14px;
+            }
+
+            .skill-tag {
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">跳转到主要内容</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="主导航">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-link">首页</a>
+            <a href="about.html" class="nav-link active">关于我</a>
+            <a href="gallery.html" class="nav-link">个人经历</a>
+            <a href="works.html" class="nav-link">作品</a>
+            <a href="contact.html" class="nav-link">联系方式</a>
+        </div>
+        <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="4" y1="8" x2="20" y2="8"/>
+                <line x1="4" y1="12" x2="20" y2="12"/>
+                <line x1="4" y1="16" x2="20" y2="16"/>
+            </svg>
+        </button>
+    </nav>
+
+    <div class="nav-mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link active">关于我</a>
+        <a href="gallery.html" class="nav-link">个人经历</a>
+        <a href="works.html" class="nav-link">作品</a>
+        <a href="contact.html" class="nav-link">联系方式</a>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="about-content">
+
+            <!-- Avatar -->
+            <div class="avatar-container animate-in" style="--delay:0ms;">
+                <div class="avatar-ring"></div>
+                <img class="avatar-img" src="file:///D:/图片/银行人IP形象/简历大头照.jpg" alt="袁家鑫的头像">
+            </div>
+
+            <!-- Name -->
+            <h1 class="about-name animate-in" style="--delay:100ms;">袁家鑫</h1>
+            <span class="about-title animate-in" style="--delay:150ms;">AIGC CONTENT CREATOR</span>
+
+            <!-- Intro -->
+            <div class="intro-card animate-in" style="--delay:200ms;">
+                <p><strong>AIGC + 传统后期双能力栈：</strong>精通提示词工程驱动即梦、可灵、DeepSeek、Libtv 等 AI 创作工具，同时熟练驾驭 PR、AE、PS 完成专业级剪辑合成与视觉精修，在 AI 高效生成与传统精雕细琢之间无缝切换。</p>
+                <p><strong>一人全链条独立交付：</strong>从创意策划、提示词驱动的 AI 素材生成到视频剪辑、成片输出独立闭环，无需多角色协作即可交付品牌级视觉内容。</p>
+                <p><strong>测试级质量把控基因：</strong>软件测试出身赋予严谨的逻辑思维与风险预判意识，确保每条 AI 生成内容在创意表达与交付标准之间精准平衡。</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider animate-in" style="--delay:250ms;"></div>
+
+            <!-- Skills -->
+            <h3 class="skills-title animate-in" style="--delay:300ms;">专业技能</h3>
+            <div class="skills-groups">
+
+                <div class="skill-group animate-in" style="--delay:350ms;">
+                    <span class="skill-group-title">AIGC 工具应用</span>
+                    <div class="skills-container">
+                        <span class="skill-tag">即梦</span>
+                        <span class="skill-tag">可灵</span>
+                        <span class="skill-tag">DeepSeek</span>
+                        <span class="skill-tag">智谱清言</span>
+                        <span class="skill-tag">Libtv</span>
+                    </div>
+                </div>
+
+                <div class="skill-group animate-in" style="--delay:450ms;">
+                    <span class="skill-group-title">多媒体后期制作</span>
+                    <div class="skills-container">
+                        <span class="skill-tag">Premiere Pro</span>
+                        <span class="skill-tag">After Effects</span>
+                        <span class="skill-tag">Photoshop</span>
+                        <span class="skill-tag">剪映</span>
+                        <span class="skill-tag">MiniMax</span>
+                    </div>
+                </div>
+
+                <div class="skill-group animate-in" style="--delay:550ms;">
+                    <span class="skill-group-title">AI 智能体搭建</span>
+                    <div class="skills-container">
+                        <span class="skill-tag">Claude Code</span>
+                        <span class="skill-tag">WorkBuddy</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/scripts/main.js"></script>
+</body>
+</html>

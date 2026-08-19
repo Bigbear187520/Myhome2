@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人经历 — 袁家鑫</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="assets/styles/main.css">
+
+    <style>
+        /* ========== Page Layout ========== */
+        .exp-content {
+            position: relative;
+            z-index: 2;
+            padding-top: calc(var(--nav-height) + 64px);
+            padding-bottom: 80px;
+            max-width: 860px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 7vw, 72px);
+            text-align: center;
+            margin-bottom: 64px;
+            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.80) 50%, rgba(255,255,255,0.50) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ========== Section ========== */
+        .exp-section {
+            margin-bottom: 64px;
+        }
+
+        .exp-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-head {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 36px;
+        }
+
+        .section-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(30px, 5vw, 42px);
+            background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.75) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ========== Timeline Cards ========== */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .exp-card {
+            position: relative;
+            padding: 28px 32px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+            transition:
+                border-color var(--duration-normal) var(--ease-expo),
+                box-shadow var(--duration-normal) var(--ease-expo);
+        }
+
+        .exp-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        /* Accent line at top */
+        .exp-card::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            border-radius: 1px;
+            background: var(--accent);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .exp-company {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--foreground);
+        }
+
+        .exp-date {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--foreground-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .exp-role {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 18px;
+        }
+
+        .exp-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .exp-list li {
+            position: relative;
+            padding-left: 18px;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            color: var(--foreground-muted);
+            line-height: 1.7;
+        }
+
+        .exp-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 767px) {
+            .exp-content {
+                padding-top: calc(var(--nav-height) + 40px);
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .page-title {
+                font-size: clamp(36px, 10vw, 48px);
+                margin-bottom: 48px;
+            }
+
+            .exp-card {
+                padding: 22px 20px;
+            }
+
+            .exp-company {
+                font-size: 19px;
+            }
+
+            .exp-list li {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">跳转到主要内容</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="主导航">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-link">首页</a>
+            <a href="about.html" class="nav-link">关于我</a>
+            <a href="gallery.html" class="nav-link active">个人经历</a>
+            <a href="works.html" class="nav-link">作品</a>
+            <a href="contact.html" class="nav-link">联系方式</a>
+        </div>
+        <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="4" y1="8" x2="20" y2="8"/>
+                <line x1="4" y1="12" x2="20" y2="12"/>
+                <line x1="4" y1="16" x2="20" y2="16"/>
+            </svg>
+        </button>
+    </nav>
+
+    <div class="nav-mobile-menu" aria-hidden="true">
+        <a href="index.html" class="nav-link">首页</a>
+        <a href="about.html" class="nav-link">关于我</a>
+        <a href="gallery.html" class="nav-link active">个人经历</a>
+        <a href="works.html" class="nav-link">作品</a>
+        <a href="contact.html" class="nav-link">联系方式</a>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="exp-content">
+
+            <h1 class="page-title animate-in" style="--delay:0ms;">个人经历</h1>
+
+            <!-- ========== 工作经历 ========== -->
+            <section class="exp-section">
+                <div class="section-head animate-in" style="--delay:100ms;">
+                    <span class="section-tag">Work Experience</span>
+                    <h2 class="section-heading">工作经历</h2>
+                </div>
+
+                <div class="timeline">
+
+                    <div class="exp-card card-spotlight animate-in" style="--delay:150ms;">
+                        <div class="exp-header">
+                            <h3 class="exp-company">江苏苏商银行股份有限公司</h3>
+                            <span class="exp-date">2024.11 - 2026.05</span>
+                        </div>
+                        <div class="exp-role">自媒体运营</div>
+                        <ul class="exp-list">
+                            <li>独立运营抖音、小红书等短视频平台，制定内容策略并执行推广营销，提升银行产品曝光量与获客转化率。</li>
+                            <li>运用 AIGC 工具生成产品营销图片，大幅提升视觉内容产出效率与创意质量。</li>
+                            <li>制作 AI 数字人视频完成产品介绍，实现内容生产的智能化与标准化。</li>
+                            <li>独立负责从创意策划、素材生成到视频剪辑、成片输出的全流程制作。</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-card card-spotlight animate-in" style="--delay:250ms;">
+                        <div class="exp-header">
+                            <h3 class="exp-company">京北方信息技术股份有限公司</h3>
+                            <span class="exp-date">2022.01 - 2024.10</span>
+                        </div>
+                        <div class="exp-role">软件测试工程师</div>
+                        <ul class="exp-list">
+                            <li>参与版本需求梳理与详设评审，负责业务功能、性能及接口测试，保障产品质量。</li>
+                            <li>具备风险预判与缺陷跟踪能力，测试过程中严格执行用例并及时上报风险。</li>
+                            <li>与开发团队紧密协作，推动问题高效解决，确保需求理解一致。</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ========== 项目经历 ========== -->
+            <section class="exp-section">
+                <div class="section-head animate-in" style="--delay:100ms;">
+                    <span class="section-tag">Project Experience</span>
+                    <h2 class="section-heading">项目经历</h2>
+                </div>
+
+                <div class="timeline">
+
+                    <div class="exp-card card-spotlight animate-in" style="--delay:150ms;">
+                        <div class="exp-header">
+                            <h3 class="exp-company">AI 创意策划 / 内容制作</h3>
+                        </div>
+                        <ul class="exp-list">
+                            <li>主导完成 2 个品牌创意广告项目，从前期创意构思到后期制作全流程把控，运用 AI 工具提升内容产出效率约 40%。</li>
+                            <li>独立策划 2 部创意漫剧大片及 1 部城市文旅宣传片，负责剧本构思、AI 辅助画面生成与后期合成，作品风格新颖，获团队一致认可。</li>
+                            <li>积累丰富的 AI 内容创作经验，涵盖文生图、图生视频、创意脚本撰写等核心环节。</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-card card-spotlight animate-in" style="--delay:250ms;">
+                        <div class="exp-header">
+                            <h3 class="exp-company">AI 智能体搭建 / Prompt 分镜自动化</h3>
+                        </div>
+                        <ul class="exp-list">
+                            <li>独立搭建 Prompt 分镜智能体，实现从剧情解析、分镜拆解、镜头设计到 Prompt 自动生成的全流程自动化。</li>
+                            <li>运用多智能体协作架构，将剧本到分镜的创作链路效率提升约 60%，单集分镜制作时间从数小时缩短至分钟级。</li>
+                            <li>沉淀分镜 Prompt 模板库与镜头语言知识库，显著提升 AI 生成画面的镜头准确率与风格一致性。</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="assets/scripts/main.js"></script>
+</body>
+</html>
